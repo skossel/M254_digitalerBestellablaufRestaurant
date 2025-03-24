@@ -266,3 +266,29 @@ main {
         right: -100%;
     }
 }
+/* Bestehende CSS-Styles beibehalten und folgende Styles hinzufügen */
+
+.employee-button {
+    background-color: #555;
+    color: #fff;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 0.9rem;
+}
+
+.employee-button:hover {
+    background-color: #333;
+}
+
+@media (max-width: 768px) {
+    .categories {
+        flex-wrap: wrap;
+    }
+
+    .employee-button {
+        margin-top: 0.5rem;
+    }
+}
