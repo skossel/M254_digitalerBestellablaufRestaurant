@@ -1,20 +1,20 @@
 const burgers = [
-    { id: 1, name: "Classic Burger", description: "Saftiges Rindfleisch mit Salat, Tomate, Zwiebeln und unserer Spezial-Sauce", price: 12.50, image: "images/burger.jpg" },
-    { id: 2, name: "Cheese Burger", description: "Unser Classic Burger mit würzigem Cheddar-Käse", price: 13.50, image: "images/burger.jpg" },
-    { id: 3, name: "Bacon Burger", description: "Classic Burger mit knusprigem Bacon und BBQ-Sauce", price: 15.00, image: "images/burger.jpg" },
-    { id: 4, name: "Veggie Burger", description: "Hausgemachter Gemüse-Patty mit frischem Gemüse und Kräuter-Dip", price: 12.50, image: "images/burger.jpg" },
-    { id: 5, name: "Double Burger", description: "Für den großen Hunger: Doppeltes Fleisch, doppelter Käse", price: 18.50, image: "images/burger.jpg" },
-    { id: 6, name: "Chili Burger", description: "Mit Jalapeños und scharfer Chili-Sauce für Liebhaber der Schärfe", price: 16.00, image: "images/burger.jpg" }
+    { id: 1, name: "Classic Burger", description: "Saftiges Rindfleisch mit Salat, Tomate, Zwiebeln und unserer Spezial-Sauce", price: 12.50, image: "images/hamburger.jpg" },
+    { id: 2, name: "Cheese Burger", description: "Unser Classic Burger mit würzigem Cheddar-Käse", price: 13.50, image: "images/cheeseBurger.jpg" },
+    { id: 3, name: "Bacon Burger", description: "Classic Burger mit knusprigem Bacon und BBQ-Sauce", price: 15.00, image: "images/baconBurger.avif" },
+    { id: 4, name: "Veggie Burger", description: "Hausgemachter Gemüse-Patty mit frischem Gemüse und Kräuter-Dip", price: 12.50, image: "images/veggieBurger.jpg" },
+    { id: 5, name: "Double Burger", description: "Für den großen Hunger: Doppeltes Fleisch, doppelter Käse", price: 18.50, image: "images/doubleBurger.jpg" },
+    { id: 6, name: "Chili Burger", description: "Mit Jalapeños und scharfer Chili-Sauce für Liebhaber der Schärfe", price: 16.00, image: "images/chilliCheeseBurger.webp" }
 ];
 const sides = [
-    { id: 101, name: "Pommes Frites", description: "Knusprige Pommes, perfekt gesalzen", price: 6.00, image: "images/burger.jpg" },
-    { id: 102, name: "Zwiebelringe", description: "Frische Zwiebelringe in Bierteig", price: 4.50, image: "images/burger.jpg" },
-    { id: 103, name: "Gemischter Salat", description: "Frischer Salat mit knackigem Gemüse", price: 3.50, image: "images/burger.jpg" }
+    { id: 101, name: "Pommes Frites", description: "Knusprige Pommes, perfekt gesalzen", price: 6.00, image: "images/fries.webp" },
+    { id: 102, name: "Zwiebelringe", description: "Frische Zwiebelringe in Bierteig", price: 4.50, image: "images/onionRings.jpg" },
+    { id: 103, name: "Gemischter Salat", description: "Frischer Salat mit knackigem Gemüse", price: 3.50, image: "images/mixedSalad.jpg" }
 ];
 const drinks = [
-    { id: 201, name: "Cola", description: "Erfrischende Cola", price: 4.00, image: "images/burger.jpg" },
-    { id: 202, name: "Fanta", description: "Fruchtig erfrischend", price: 4.00, image: "images/burger.jpg" },
-    { id: 203, name: "Mineralwasser", description: "Natürliches Mineralwasser", price: 3.50, image: "images/burger.jpg" }
+    { id: 201, name: "Cola", description: "Erfrischende Cola", price: 4.00, image: "images/coke.jpg" },
+    { id: 202, name: "Fanta", description: "Fruchtig erfrischend", price: 4.00, image: "images/fanta.webp" },
+    { id: 203, name: "Mineralwasser", description: "Natürliches Mineralwasser", price: 3.50, image: "images/sparklingWater.jpg" }
 ];
 const menuItems = { burgers, sides, drinks };
 let currentCategory = 'burgers';
