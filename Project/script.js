@@ -179,7 +179,7 @@ function getCurrentDateTime() {
     const year = now.getFullYear();
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
-    
+
     return `${day}.${month}.${year} ${hours}:${minutes}`;
 }
 
@@ -190,16 +190,16 @@ function createEmployeeOrderView(orderData) {
     orderView += `Tisch: ${orderData.table_number}\n`;
     orderView += `Bestellzeit: ${orderData.order_time}\n`;
     orderView += `Bestellung:\n`;
-    
+
     // Bestellte Artikel hinzufügen
     orderData.order_items.forEach(item => {
         orderView += `${item.quantity}x ${item.name} - ${(item.price * item.quantity).toFixed(2).replace('.', ',')} CHF\n`;
     });
-    
+
     // Gesamtpreis hinzufügen
     const total = orderData.order_items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     orderView += `\nGesamt: ${total.toFixed(2).replace('.', ',')} CHF`;
-    
+
     return orderView;
 }
 
@@ -209,19 +209,19 @@ function saveOrder(tableNumber) {
         alert('Der Warenkorb ist leer.');
         return null;
     }
-    
+
     const orderData = {
         order_number: orderCounter++,
         table_number: tableNumber,
         order_time: getCurrentDateTime(),
         order_items: [...cart] // Kopie des Warenkorbs
     };
-    
+
     // Speichern der Bestellung im localStorage
     let orders = JSON.parse(localStorage.getItem('orders') || '[]');
     orders.push(orderData);
     localStorage.setItem('orders', JSON.stringify(orders));
-    
+
     return orderData;
 }
 
@@ -231,19 +231,19 @@ function showOrderDialog() {
         alert('Dein Warenkorb ist leer.');
         return;
     }
-    
+
     const tableNumber = prompt('Bitte geben Sie die Tischnummer ein:', '1');
     if (tableNumber === null) return; // Abbruch, wenn Cancel gedrückt wurde
-    
+
     const orderData = saveOrder(tableNumber);
     if (orderData) {
         // Bestellübersicht für Mitarbeiter erstellen
         const employeeOrderView = createEmployeeOrderView(orderData);
-        
+
         // Anzeigen der Bestellübersicht (hier als Alert, in einer realen Anwendung würde man
         // diese Informationen an ein Mitarbeiter-Dashboard senden)
         alert('Bestellung wurde aufgenommen:\n\n' + employeeOrderView);
-        
+
         // Warenkorb leeren
         cart = [];
         updateCart();
@@ -264,7 +264,7 @@ function loadCart() {
         cart = JSON.parse(savedCart);
         updateCart();
     }
-    
+
     // Laden der letzten Bestellnummer aus dem localStorage
     const orders = JSON.parse(localStorage.getItem('orders') || '[]');
     if (orders.length > 0) {
@@ -289,12 +289,12 @@ function viewAllOrders() {
         alert('Keine Bestellungen vorhanden.');
         return;
     }
-    
+
     let allOrdersView = 'Alle Bestellungen:\n\n';
     orders.forEach(order => {
         allOrdersView += createEmployeeOrderView(order) + '\n\n' + '-'.repeat(30) + '\n\n';
     });
-    
+
     alert(allOrdersView);
 }
 
@@ -312,7 +312,7 @@ function addEmployeeSection() {
             alert('Falsches Passwort.');
         }
     });
-    
+
     document.querySelector('nav').appendChild(employeeButton);
 }
 
@@ -323,3 +323,20 @@ function init() {
 }
 
 init();
+
+//TODO send Mail funktioniert noch nciht. orderData finedet es nicht
+function sendMail (event) {
+    event.preventDefault();
+    let params = {
+        order_number : orderData.order_number.value,
+        table_number : orderData.table_number.value,
+        orderCounter : orderData.orderCounter.value,
+        order_items : orderData.order_items.value
+    }
+
+    emailjs
+        .send("service_ixfoyzk", "template_6hy17ci", params)
+        .then(function (response) {
+            alert("Email sent successfully!");
+        });
+}
