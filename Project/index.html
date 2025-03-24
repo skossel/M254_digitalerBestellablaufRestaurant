@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burger Paradise</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #ff6b35;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff6b35;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ff6b35;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .burger-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .burger-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .burger-img {
+            width: 100%;
+            height: 180px;
+            background-color: #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .burger-img img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .burger-details {
+            padding: 1rem;
+        }
+
+        .burger-name {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .burger-description {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .burger-price {
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #ff6b35;
+        }
+
+        .add-to-cart {
+            background-color: #ff6b35;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .add-to-cart:hover {
+            background-color: #e85a2a;
+        }
+
+        #cart-modal {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            transition: right 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        #cart-modal.active {
+            right: 0;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+        }
+
+        .cart-item-price {
+            color: #666;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-btn {
+            background-color: #eee;
+            border: none;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .quantity {
+            padding: 0 10px;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: #ff6b35;
+            cursor: pointer;
+        }
+
+        .cart-total {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 2px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .checkout-btn {
+            background-color: #ff6b35;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .checkout-btn:hover {
+            background-color: #e85a2a;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-container {
+                grid-template-columns: 1fr;
+            }
+
+            #cart-modal {
+                width: 100%;
+                right: -100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Burger Paradise</h1>
+        <p>Die besten Burger der Stadt!</p>
+    </header>
+
+    <nav>
+        <div class="logo">BurgerParadise</div>
+        <div class="cart-icon" id="cart-icon">
+            🛒
+            <span class="cart-count" id="cart-count">0</span>
+        </div>
+    </nav>
+
+    <main>
+        <h2>Unser Menü</h2>
+        <div class="menu-container" id="menu-container">
+            <!-- Burger-Karten werden dynamisch eingefügt -->
+        </div>
+    </main>
+
+    <div id="cart-modal">
+        <div class="modal-header">
+            <h2>Warenkorb</h2>
+            <button class="close-modal" id="close-modal">×</button>
+        </div>
+        <div id="cart-items">
+            <!-- Warenkorb-Artikel werden dynamisch eingefügt -->
+        </div>
+        <div class="cart-total">
+            <span>Gesamt:</span>
+            <span id="total-price">0,00 €</span>
+        </div>
+        <button class="checkout-btn" id="checkout-btn">Zur Kasse</button>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+        // Burger-Daten
+        const burgers = [
+            {
+                id: 1,
+                name: "Classic Burger",
+                description: "Saftiges Rindfleisch mit Salat, Tomate, Zwiebeln und unserer Spezial-Sauce",
+                price: 8.99,
+                image: "/api/placeholder/300/200"
+            },
+            {
+                id: 2,
+                name: "Cheese Burger",
+                description: "Unser Classic Burger mit würzigem Cheddar-Käse",
+                price: 9.99,
+                image: "/api/placeholder/300/200"
+            },
+            {
+                id: 3,
+                name: "Bacon Burger",
+                description: "Classic Burger mit knusprigem Bacon und BBQ-Sauce",
+                price: 10.99,
+                image: "/api/placeholder/300/200"
+            },
+            {
+                id: 4,
+                name: "Veggie Burger",
+                description: "Hausgemachter Gemüse-Patty mit frischem Gemüse und Kräuter-Dip",
+                price: 9.49,
+                image: "/api/placeholder/300/200"
+            },
+            {
+                id: 5,
+                name: "Double Burger",
+                description: "Für den großen Hunger: Doppeltes Fleisch, doppelter Käse",
+                price: 12.99,
+                image: "/api/placeholder/300/200"
+            },
+            {
+                id: 6,
+                name: "Chili Burger",
+                description: "Mit Jalapeños und scharfer Chili-Sauce für Liebhaber der Schärfe",
+                price: 10.49,
+                image: "/api/placeholder/300/200"
+            }
+        ];
+
+        // Warenkorb-Array
+        let cart = [];
+
+        // DOM-Elemente
+        const menuContainer = document.getElementById('menu-container');
+        const cartModal = document.getElementById('cart-modal');
+        const cartIcon = document.getElementById('cart-icon');
+        const closeModal = document.getElementById('close-modal');
+        const overlay = document.getElementById('overlay');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartCount = document.getElementById('cart-count');
+        const totalPrice = document.getElementById('total-price');
+        const checkoutBtn = document.getElementById('checkout-btn');
+
+        // Burger-Karten erstellen
+        function renderMenu() {
+            menuContainer.innerHTML = '';
+
+            burgers.forEach(burger => {
+                const burgerCard = document.createElement('div');
+                burgerCard.className = 'burger-card';
+
+                burgerCard.innerHTML = `
+                    <div class="burger-img">
+                        <img src="${burger.image}" alt="${burger.name}">
+                    </div>
+                    <div class="burger-details">
+                        <h3 class="burger-name">${burger.name}</h3>
+                        <p class="burger-description">${burger.description}</p>
+                        <p class="burger-price">${burger.price.toFixed(2).replace('.', ',')} €</p>
+                        <button class="add-to-cart" data-id="${burger.id}">In den Warenkorb</button>
+                    </div>
+                `;
+
+                menuContainer.appendChild(burgerCard);
+            });
+
+            // Event-Listener für "In den Warenkorb"-Buttons
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const burgerId = parseInt(button.getAttribute('data-id'));
+                    addToCart(burgerId);
+                });
+            });
+        }
+
+        // Artikel zum Warenkorb hinzufügen
+        function addToCart(burgerId) {
+            const burger = burgers.find(b => b.id === burgerId);
+
+            const existingCartItem = cart.find(item => item.id === burgerId);
+
+            if (existingCartItem) {
+                existingCartItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: burger.id,
+                    name: burger.name,
+                    price: burger.price,
+                    quantity: 1
+                });
+            }
+
+            updateCart();
+
+            // Animation für den Warenkorb
+            cartIcon.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                cartIcon.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Warenkorb aktualisieren
+        function updateCart() {
+            renderCartItems();
+            updateCartCount();
+            updateTotalPrice();
+
+            // Speichern im localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        // Warenkorb-Artikel rendern
+        function renderCartItems() {
+            cartItemsContainer.innerHTML = '';
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Dein Warenkorb ist leer.</p>';
+                return;
+            }
+
+            cart.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+
+                cartItem.innerHTML = `
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price.toFixed(2).replace('.', ',')} €</div>
+                    </div>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                        <span class="quantity">${item.quantity}</span>
+                        <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                    </div>
+                    <button class="remove-item" data-id="${item.id}">🗑️</button>
+                `;
+
+                cartItemsContainer.appendChild(cartItem);
+            });
+
+            // Event-Listener für Warenkorb-Steuerelemente
+            const decreaseButtons = document.querySelectorAll('.decrease');
+            const increaseButtons = document.querySelectorAll('.increase');
+            const removeButtons = document.querySelectorAll('.remove-item');
+
+            decreaseButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const itemId = parseInt(button.getAttribute('data-id'));
+                    decreaseQuantity(itemId);
+                });
+            });
+
+            increaseButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const itemId = parseInt(button.getAttribute('data-id'));
+                    increaseQuantity(itemId);
+                });
+            });
+
+            removeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const itemId = parseInt(button.getAttribute('data-id'));
+                    removeFromCart(itemId);
+                });
+            });
+        }
+
+        // Anzahl der Artikel im Warenkorb aktualisieren
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = count;
+        }
+
+        // Gesamtpreis aktualisieren
+        function updateTotalPrice() {
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            totalPrice.textContent = total.toFixed(2).replace('.', ',') + ' €';
+        }
+
+        // Menge verringern
+        function decreaseQuantity(itemId) {
+            const cartItem = cart.find(item => item.id === itemId);
+
+            if (cartItem.quantity > 1) {
+                cartItem.quantity -= 1;
+            } else {
+                removeFromCart(itemId);
+                return;
+            }
+
+            updateCart();
+        }
+
+        // Menge erhöhen
+        function increaseQuantity(itemId) {
+            const cartItem = cart.find(item => item.id === itemId);
+            cartItem.quantity += 1;
+            updateCart();
+        }
+
+        // Artikel aus dem Warenkorb entfernen
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            updateCart();
+        }
+
+        // Warenkorb-Modal öffnen
+        function openCartModal() {
+            cartModal.classList.add('active');
+            overlay.classList.add('active');
+        }
+
+        // Warenkorb-Modal schließen
+        function closeCartModal() {
+            cartModal.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        // Event-Listener
+        cartIcon.addEventListener('click', openCartModal);
+        closeModal.addEventListener('click', closeCartModal);
+        overlay.addEventListener('click', closeCartModal);
+
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Dein Warenkorb ist leer.');
+                return;
+            }
+
+            alert('Vielen Dank für deine Bestellung! Sie wird jetzt bearbeitet.');
+            cart = [];
+            updateCart();
+            closeCartModal();
+        });
+
+        // Warenkorb aus localStorage laden
+        function loadCart() {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCart();
+            }
+        }
+
+        // Seite initialisieren
+        function init() {
+            renderMenu();
+            loadCart();
+        }
+
+        // Seite starten
+        init();
+    </script>
+</body>
+
+</html>
