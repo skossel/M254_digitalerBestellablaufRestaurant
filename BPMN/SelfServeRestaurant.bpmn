@@ -14,12 +14,12 @@
     <bpmn2:messageFlow id="id-75dfaba3-6ed0-4ef2-8675-27c88e71cc42" sourceRef="id-6873e511-4928-4089-8bd2-b88b099693f8" targetRef="id-718971fc-5c11-4a2e-8172-4634513b599e" />
     <bpmn2:messageFlow id="id-6926c699-3745-4b55-8690-44deeaf5f120" sourceRef="id-718971fc-5c11-4a2e-8172-4634513b599e" targetRef="id-6873e511-4928-4089-8bd2-b88b099693f8" />
     <bpmn2:messageFlow id="id-92a80d31-760d-4e9f-8691-13259578ae4a" sourceRef="id-2d915c15-4a6d-4a97-b25e-d5b13c7d9470" targetRef="id-6a725c06-8437-4c22-b670-24ec6dea1272" />
-    <bpmn2:messageFlow id="id-d149b701-890e-4de7-9ee8-4a573c74160a" sourceRef="id-b4182704-022a-4761-a1ee-1435a8fc7cf3" targetRef="id-51ed9935-91dd-497d-b825-fa0d2660c099" />
     <bpmn2:messageFlow id="id-fa6ffb98-e5ed-4d28-830a-0676f1956026" sourceRef="id-2715bd4e-4239-4f70-afe7-f072716d6e2d" targetRef="id-edea0391-4c39-42e9-bcb7-5f2507d257b8" />
     <bpmn2:messageFlow id="id-bf99e14a-c118-4a8e-8987-7525fe0c3220" sourceRef="id-ae4e3d9e-2004-4592-b8b8-3f32b0c55ed4" targetRef="id-2715bd4e-4239-4f70-afe7-f072716d6e2d" />
     <bpmn2:messageFlow id="id-f25aee61-0b10-44d2-b536-09608bc80baa" sourceRef="id-e37b4ef6-003c-4662-b1d2-b3fe6282ae05" targetRef="id-9ad63176-7c7c-4220-923a-dbcca3999ef6" />
     <bpmn2:messageFlow id="id-8457aafc-e6cf-4ebd-9a0c-4ff7a648b6ee" sourceRef="id-1b7f6105-de84-4743-b61b-369e15b0f81b" targetRef="id-cda2aa95-2fb9-4d34-9b2e-05e35a9b869a" />
     <bpmn2:messageFlow id="id-68a6139f-524e-4321-aec8-586e657ace5e" sourceRef="id-06e95f20-f539-4ede-9803-88e5ae01e25e" targetRef="id-6b414d17-b5b4-41a0-a9ea-a96c679f3972" />
+    <bpmn2:messageFlow id="id-d149b701-890e-4de7-9ee8-4a573c74160a" sourceRef="id-b4182704-022a-4761-a1ee-1435a8fc7cf3" targetRef="id-51ed9935-91dd-497d-b825-fa0d2660c099" />
   </bpmn2:collaboration>
   <bpmn2:process id="Process_id-6b414d17-b5b4-41a0-a9ea-a96c679f3972" name="Guest food consumption" isExecutable="true" camunda:historyTimeToLive="180">
     <bpmn2:sequenceFlow id="id-67d7737c-58a3-4558-96f9-335bc6dee1e2" sourceRef="id-3a525c58-f13c-4e1b-bdbd-0b04084a4eec" targetRef="id-da388a97-9fbf-4177-a6da-7422eaafa126" />
@@ -29,18 +29,8 @@
     <bpmn2:sequenceFlow id="id-61adc544-7568-4e83-8a71-4c87459cd35d" sourceRef="id-28831900-e8e2-4ccd-ba3d-9ac2e5401a52" targetRef="id-78fa0441-37de-46cb-b011-50196db349ef" />
     <bpmn2:sequenceFlow id="id-6fc992bf-7339-460c-b901-e7ae4997aa1a" sourceRef="id-78fa0441-37de-46cb-b011-50196db349ef" targetRef="id-718971fc-5c11-4a2e-8172-4634513b599e" />
     <bpmn2:sequenceFlow id="id-70b1f6ac-12f5-402b-8372-70af6bc339f0" sourceRef="id-718971fc-5c11-4a2e-8172-4634513b599e" targetRef="id-6a725c06-8437-4c22-b670-24ec6dea1272" />
-    <bpmn2:sequenceFlow id="id-f369d3e9-9b90-4072-8b22-832e4485f47e" sourceRef="id-6a725c06-8437-4c22-b670-24ec6dea1272" targetRef="id-51ed9935-91dd-497d-b825-fa0d2660c099" />
-    <bpmn2:sequenceFlow id="id-e198c564-82b2-4800-8063-8e8410395190" sourceRef="id-51ed9935-91dd-497d-b825-fa0d2660c099" targetRef="id-2715bd4e-4239-4f70-afe7-f072716d6e2d" />
     <bpmn2:sequenceFlow id="id-acada9ff-a49a-4d87-b0c9-43a382d88177" sourceRef="id-2715bd4e-4239-4f70-afe7-f072716d6e2d" targetRef="id-1e26a7ea-4031-47bd-9a20-7afdbfb3197e" />
     <bpmn2:sequenceFlow id="id-02ef73ee-260d-44e4-9a7d-394b8b408c07" sourceRef="id-1e26a7ea-4031-47bd-9a20-7afdbfb3197e" targetRef="id-72d0752a-138d-46af-96b5-2473882c7010" />
-    <bpmn2:intermediateCatchEvent id="id-51ed9935-91dd-497d-b825-fa0d2660c099" name="Meal ready">
-      <bpmn2:incoming>id-f369d3e9-9b90-4072-8b22-832e4485f47e</bpmn2:incoming>
-      <bpmn2:outgoing>id-e198c564-82b2-4800-8063-8e8410395190</bpmn2:outgoing>
-      <bpmn2:messageEventDefinition id="id-8d332477-2aa2-4363-a641-1977dd795d95" />
-    </bpmn2:intermediateCatchEvent>
-    <bpmn2:endEvent id="id-72d0752a-138d-46af-96b5-2473882c7010" name="Not hungry anymore">
-      <bpmn2:incoming>id-02ef73ee-260d-44e4-9a7d-394b8b408c07</bpmn2:incoming>
-    </bpmn2:endEvent>
     <bpmn2:startEvent id="id-3a525c58-f13c-4e1b-bdbd-0b04084a4eec" name="Hunger noticed">
       <bpmn2:outgoing>id-67d7737c-58a3-4558-96f9-335bc6dee1e2</bpmn2:outgoing>
     </bpmn2:startEvent>
@@ -63,7 +53,7 @@
       <bpmn2:incoming>id-67d7737c-58a3-4558-96f9-335bc6dee1e2</bpmn2:incoming>
       <bpmn2:outgoing>Flow_0rkfci1</bpmn2:outgoing>
     </bpmn2:userTask>
-    <bpmn2:sendTask id="id-78fa0441-37de-46cb-b011-50196db349ef" name="Place order">
+    <bpmn2:sendTask id="id-78fa0441-37de-46cb-b011-50196db349ef" name="Place order" camunda:type="external" camunda:topic="send_order_mail">
       <bpmn2:incoming>id-61adc544-7568-4e83-8a71-4c87459cd35d</bpmn2:incoming>
       <bpmn2:outgoing>id-6fc992bf-7339-460c-b901-e7ae4997aa1a</bpmn2:outgoing>
     </bpmn2:sendTask>
@@ -76,6 +66,16 @@
       <bpmn2:incoming>id-70b1f6ac-12f5-402b-8372-70af6bc339f0</bpmn2:incoming>
       <bpmn2:outgoing>id-f369d3e9-9b90-4072-8b22-832e4485f47e</bpmn2:outgoing>
     </bpmn2:userTask>
+    <bpmn2:intermediateCatchEvent id="id-51ed9935-91dd-497d-b825-fa0d2660c099" name="Meal ready">
+      <bpmn2:incoming>id-f369d3e9-9b90-4072-8b22-832e4485f47e</bpmn2:incoming>
+      <bpmn2:outgoing>id-e198c564-82b2-4800-8063-8e8410395190</bpmn2:outgoing>
+      <bpmn2:messageEventDefinition id="id-8d332477-2aa2-4363-a641-1977dd795d95" messageRef="Message_0embsb0" />
+    </bpmn2:intermediateCatchEvent>
+    <bpmn2:sequenceFlow id="id-e198c564-82b2-4800-8063-8e8410395190" sourceRef="id-51ed9935-91dd-497d-b825-fa0d2660c099" targetRef="id-2715bd4e-4239-4f70-afe7-f072716d6e2d" />
+    <bpmn2:sequenceFlow id="id-f369d3e9-9b90-4072-8b22-832e4485f47e" sourceRef="id-6a725c06-8437-4c22-b670-24ec6dea1272" targetRef="id-51ed9935-91dd-497d-b825-fa0d2660c099" />
+    <bpmn2:endEvent id="id-72d0752a-138d-46af-96b5-2473882c7010" name="Not hungry anymore">
+      <bpmn2:incoming>id-02ef73ee-260d-44e4-9a7d-394b8b408c07</bpmn2:incoming>
+    </bpmn2:endEvent>
     <bpmn2:userTask id="id-2715bd4e-4239-4f70-afe7-f072716d6e2d" name="Get meal">
       <bpmn2:incoming>id-e198c564-82b2-4800-8063-8e8410395190</bpmn2:incoming>
       <bpmn2:outgoing>id-acada9ff-a49a-4d87-b0c9-43a382d88177</bpmn2:outgoing>
@@ -88,7 +88,7 @@
   <bpmn2:process id="Process_id-d08faf44-e0ea-4342-909b-833af68fbc58" name="Employee order processing" isExecutable="true" camunda:historyTimeToLive="180">
     <bpmn2:startEvent id="id-b6322b94-c9d8-457f-8cb8-335b7fcab8ac" name="Order received">
       <bpmn2:outgoing>id-0ef18caa-bd33-478c-b8a3-74a79811e945</bpmn2:outgoing>
-      <bpmn2:messageEventDefinition id="id-182e6601-45f3-42b1-bf53-fb3a83d76a7d" />
+      <bpmn2:messageEventDefinition id="id-182e6601-45f3-42b1-bf53-fb3a83d76a7d" messageRef="Message_1italbj" />
     </bpmn2:startEvent>
     <bpmn2:sequenceFlow id="id-0ef18caa-bd33-478c-b8a3-74a79811e945" sourceRef="id-b6322b94-c9d8-457f-8cb8-335b7fcab8ac" targetRef="id-6a5e8d03-ba5e-4fda-af8d-31c6abb5a78c" />
     <bpmn2:sequenceFlow id="id-914cbab3-e283-4b73-9652-e8c2c8bd9cbe" sourceRef="id-6a5e8d03-ba5e-4fda-af8d-31c6abb5a78c" targetRef="id-6873e511-4928-4089-8bd2-b88b099693f8" />
@@ -106,7 +106,7 @@
     <bpmn2:intermediateCatchEvent id="id-cda2aa95-2fb9-4d34-9b2e-05e35a9b869a" name="Meal ready">
       <bpmn2:incoming>id-66d7255f-7305-4e34-bd71-16ddb1923635</bpmn2:incoming>
       <bpmn2:outgoing>id-a2d5e38b-a142-4412-9986-7fe1c34f14f8</bpmn2:outgoing>
-      <bpmn2:messageEventDefinition id="id-8033f28e-3b80-4fe6-b4f5-81e0198b97f2" />
+      <bpmn2:messageEventDefinition id="id-8033f28e-3b80-4fe6-b4f5-81e0198b97f2" messageRef="Message_08bgko0" />
     </bpmn2:intermediateCatchEvent>
     <bpmn2:eventBasedGateway id="id-1715dc82-a53c-4467-8c25-2364db724508">
       <bpmn2:incoming>id-2a4a3ece-8950-47bb-8c30-384e75a9d80d</bpmn2:incoming>
@@ -125,7 +125,7 @@
     <bpmn2:intermediateCatchEvent id="id-edea0391-4c39-42e9-bcb7-5f2507d257b8" name="Guest &#10;appears">
       <bpmn2:incoming>id-745cff29-a3e8-41a9-8ea9-eb49386eaa3a</bpmn2:incoming>
       <bpmn2:outgoing>id-96d1feae-1d4c-4f5e-befa-08eb4eed4f7f</bpmn2:outgoing>
-      <bpmn2:messageEventDefinition id="id-243e0c2e-1ab4-4dd8-92a1-91eaa12284ec" />
+      <bpmn2:messageEventDefinition id="id-243e0c2e-1ab4-4dd8-92a1-91eaa12284ec" messageRef="Message_3dpghip" />
     </bpmn2:intermediateCatchEvent>
     <bpmn2:endEvent id="id-28f0891b-a407-4fc4-8193-7b6cf1ea181d" name="Order processed">
       <bpmn2:incoming>id-67e9300f-18aa-4ba9-96ea-1365975583cd</bpmn2:incoming>
@@ -142,7 +142,7 @@
       <bpmn2:incoming>Flow_15uxvcc</bpmn2:incoming>
       <bpmn2:outgoing>id-d71264cd-e2e5-43e9-8988-8d3bee5d651d</bpmn2:outgoing>
     </bpmn2:userTask>
-    <bpmn2:sendTask id="id-e37b4ef6-003c-4662-b1d2-b3fe6282ae05" name="Inform cook">
+    <bpmn2:sendTask id="id-e37b4ef6-003c-4662-b1d2-b3fe6282ae05" name="Inform cook" camunda:type="external" camunda:topic="inform_cook">
       <bpmn2:extensionElements />
       <bpmn2:incoming>id-d71264cd-e2e5-43e9-8988-8d3bee5d651d</bpmn2:incoming>
       <bpmn2:outgoing>id-66d7255f-7305-4e34-bd71-16ddb1923635</bpmn2:outgoing>
@@ -151,11 +151,6 @@
       <bpmn2:incoming>id-96d1feae-1d4c-4f5e-befa-08eb4eed4f7f</bpmn2:incoming>
       <bpmn2:outgoing>id-67e9300f-18aa-4ba9-96ea-1365975583cd</bpmn2:outgoing>
     </bpmn2:userTask>
-    <bpmn2:serviceTask id="id-06e95f20-f539-4ede-9803-88e5ae01e25e" name="Call guest">
-      <bpmn2:documentation>&lt;p class="m-0 mb-[8px] relative last:mb-0"&gt;&lt;br&gt;&lt;/p&gt;</bpmn2:documentation>
-      <bpmn2:incoming>Flow_1gm90oy</bpmn2:incoming>
-      <bpmn2:outgoing>id-1db233a9-381d-4f89-9fb5-d0a0e819f241</bpmn2:outgoing>
-    </bpmn2:serviceTask>
     <bpmn2:manualTask id="id-0375941a-0e67-4d2e-a3c3-2e9eb9c71184" name="Set up buzzer">
       <bpmn2:incoming>id-1556853e-428c-460b-9ace-647e2854db3f</bpmn2:incoming>
       <bpmn2:outgoing>Flow_15uxvcc</bpmn2:outgoing>
@@ -164,11 +159,16 @@
       <bpmn2:incoming>id-a2d5e38b-a142-4412-9986-7fe1c34f14f8</bpmn2:incoming>
       <bpmn2:outgoing>id-2a4a3ece-8950-47bb-8c30-384e75a9d80d</bpmn2:outgoing>
     </bpmn2:manualTask>
+    <bpmn2:userTask id="id-06e95f20-f539-4ede-9803-88e5ae01e25e" name="Call guest">
+      <bpmn2:documentation>&lt;p class="m-0 mb-[8px] relative last:mb-0"&gt;&lt;br&gt;&lt;/p&gt;</bpmn2:documentation>
+      <bpmn2:incoming>Flow_1gm90oy</bpmn2:incoming>
+      <bpmn2:outgoing>id-1db233a9-381d-4f89-9fb5-d0a0e819f241</bpmn2:outgoing>
+    </bpmn2:userTask>
   </bpmn2:process>
   <bpmn2:process id="Process_id-59784928-c98c-4c8d-8303-5d410e7c9aef" name="Chef meal preparation" isExecutable="true" camunda:historyTimeToLive="180">
     <bpmn2:startEvent id="id-9ad63176-7c7c-4220-923a-dbcca3999ef6" name="Meal needed">
       <bpmn2:outgoing>id-c9a695fc-3429-4c1d-b106-a47b8b5ad0c8</bpmn2:outgoing>
-      <bpmn2:messageEventDefinition id="id-2192a21c-532b-4c79-8fa5-31fdb3076777" />
+      <bpmn2:messageEventDefinition id="id-2192a21c-532b-4c79-8fa5-31fdb3076777" messageRef="Message_2tin8vr" />
     </bpmn2:startEvent>
     <bpmn2:sequenceFlow id="id-c9a695fc-3429-4c1d-b106-a47b8b5ad0c8" sourceRef="id-9ad63176-7c7c-4220-923a-dbcca3999ef6" targetRef="id-d2a28110-15cd-416a-9550-9728cafb212b" />
     <bpmn2:sequenceFlow id="id-539190be-e3a0-469c-9d8e-71302be48a98" sourceRef="id-d2a28110-15cd-416a-9550-9728cafb212b" targetRef="id-3b77b2c3-da75-49e8-8cea-6471d00cbdfc" />
@@ -185,27 +185,26 @@
       <bpmn2:incoming>id-539190be-e3a0-469c-9d8e-71302be48a98</bpmn2:incoming>
       <bpmn2:outgoing>id-87235cae-f40c-4f49-91af-55a4214a1dc7</bpmn2:outgoing>
     </bpmn2:userTask>
-    <bpmn2:sendTask id="id-1b7f6105-de84-4743-b61b-369e15b0f81b" name="Inform employee">
+    <bpmn2:sendTask id="id-1b7f6105-de84-4743-b61b-369e15b0f81b" name="Inform employee" camunda:type="external" camunda:topic="inform_employee">
       <bpmn2:incoming>id-87235cae-f40c-4f49-91af-55a4214a1dc7</bpmn2:incoming>
       <bpmn2:outgoing>Flow_1etd1gg</bpmn2:outgoing>
     </bpmn2:sendTask>
   </bpmn2:process>
+  <bpmn2:message id="Message_0embsb0" name="meal_ready_id" />
+  <bpmn2:message id="Message_1italbj" name="order_recieved_id" />
+  <bpmn2:message id="Message_3dpghip" name="guest_appears_id" />
+  <bpmn2:message id="Message_2tin8vr" name="meal_needed" />
+  <bpmn2:message id="Message_08bgko0" name="meal_ready_kitchen" />
   <bpmndi:BPMNDiagram id="id-039353ff-e371-42c5-9ada-3e2984f41557di">
     <bpmndi:BPMNPlane id="id-039353ff-e371-42c5-9ada-3e2984f41557_plane" bpmnElement="Collaboration_id-039353ff-e371-42c5-9ada-3e2984f41557">
       <bpmndi:BPMNShape id="id-6b414d17-b5b4-41a0-a9ea-a96c679f3972_shape" bpmnElement="id-6b414d17-b5b4-41a0-a9ea-a96c679f3972" isHorizontal="true">
-        <dc:Bounds x="160" y="80" width="2050" height="250" />
+        <dc:Bounds x="160" y="80" width="2090" height="250" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="id-51ed9935-91dd-497d-b825-fa0d2660c099_shape" bpmnElement="id-51ed9935-91dd-497d-b825-fa0d2660c099">
         <dc:Bounds x="1491" y="170" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1481" y="146" width="55" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="id-72d0752a-138d-46af-96b5-2473882c7010_shape" bpmnElement="id-72d0752a-138d-46af-96b5-2473882c7010">
-        <dc:Bounds x="1897" y="170" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1888" y="204" width="55" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1je58d8_di" bpmnElement="id-3a525c58-f13c-4e1b-bdbd-0b04084a4eec">
@@ -238,11 +237,17 @@
       <bpmndi:BPMNShape id="Activity_13qnwmg_di" bpmnElement="id-6a725c06-8437-4c22-b670-24ec6dea1272">
         <dc:Bounds x="1342" y="148" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="id-72d0752a-138d-46af-96b5-2473882c7010_shape" bpmnElement="id-72d0752a-138d-46af-96b5-2473882c7010">
+        <dc:Bounds x="1937" y="170" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1928" y="204" width="55" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_05etymg_di" bpmnElement="id-2715bd4e-4239-4f70-afe7-f072716d6e2d">
-        <dc:Bounds x="1579" y="148" width="100" height="80" />
+        <dc:Bounds x="1619" y="148" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_08rdz70_di" bpmnElement="id-1e26a7ea-4031-47bd-9a20-7afdbfb3197e">
-        <dc:Bounds x="1734" y="148" width="100" height="80" />
+        <dc:Bounds x="1774" y="148" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="id-67d7737c-58a3-4558-96f9-335bc6dee1e2_shape" bpmnElement="id-67d7737c-58a3-4558-96f9-335bc6dee1e2">
         <di:waypoint x="266" y="188" />
@@ -293,21 +298,21 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="id-e198c564-82b2-4800-8063-8e8410395190_shape" bpmnElement="id-e198c564-82b2-4800-8063-8e8410395190">
         <di:waypoint x="1527" y="188" />
-        <di:waypoint x="1579" y="188" />
+        <di:waypoint x="1619" y="188" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1123" y="106" width="100" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="id-acada9ff-a49a-4d87-b0c9-43a382d88177_shape" bpmnElement="id-acada9ff-a49a-4d87-b0c9-43a382d88177">
-        <di:waypoint x="1679" y="188" />
-        <di:waypoint x="1734" y="188" />
+        <di:waypoint x="1719" y="188" />
+        <di:waypoint x="1774" y="188" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1271.5" y="122" width="100" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="id-02ef73ee-260d-44e4-9a7d-394b8b408c07_shape" bpmnElement="id-02ef73ee-260d-44e4-9a7d-394b8b408c07">
-        <di:waypoint x="1834" y="188" />
-        <di:waypoint x="1897" y="188" />
+        <di:waypoint x="1874" y="188" />
+        <di:waypoint x="1937" y="188" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1425.5" y="106" width="100" height="40" />
         </bpmndi:BPMNLabel>
@@ -343,7 +348,7 @@
       <bpmndi:BPMNShape id="id-edea0391-4c39-42e9-bcb7-5f2507d257b8_shape" bpmnElement="id-edea0391-4c39-42e9-bcb7-5f2507d257b8">
         <dc:Bounds x="1684" y="426" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1681" y="388.5" width="41" height="27" />
+          <dc:Bounds x="1632.5" y="430" width="41" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="id-28f0891b-a407-4fc4-8193-7b6cf1ea181d_shape" bpmnElement="id-28f0891b-a407-4fc4-8193-7b6cf1ea181d">
@@ -367,14 +372,14 @@
       <bpmndi:BPMNShape id="Activity_0jraoon_di" bpmnElement="id-ae4e3d9e-2004-4592-b8b8-3f32b0c55ed4">
         <dc:Bounds x="1810" y="404" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1phvjhj_di" bpmnElement="id-06e95f20-f539-4ede-9803-88e5ae01e25e">
-        <dc:Bounds x="1910" y="558" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1wxi0z9_di" bpmnElement="id-0375941a-0e67-4d2e-a3c3-2e9eb9c71184">
         <dc:Bounds x="921" y="492" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1sg046s_di" bpmnElement="id-b4182704-022a-4761-a1ee-1435a8fc7cf3">
         <dc:Bounds x="1458" y="492" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1la0fxt_di" bpmnElement="id-06e95f20-f539-4ede-9803-88e5ae01e25e">
+        <dc:Bounds x="1910" y="558" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="id-0ef18caa-bd33-478c-b8a3-74a79811e945_shape" bpmnElement="id-0ef18caa-bd33-478c-b8a3-74a79811e945">
         <di:waypoint x="268" y="532" />
@@ -567,9 +572,8 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="id-fa6ffb98-e5ed-4d28-830a-0676f1956026_shape" bpmnElement="id-fa6ffb98-e5ed-4d28-830a-0676f1956026">
-        <di:waypoint x="1629" y="228" />
-        <di:waypoint x="1629" y="444" />
-        <di:waypoint x="1684" y="444" />
+        <di:waypoint x="1702" y="228" />
+        <di:waypoint x="1702" y="426" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1199" y="238" width="100" height="40" />
         </bpmndi:BPMNLabel>
@@ -577,9 +581,8 @@
       <bpmndi:BPMNEdge id="id-bf99e14a-c118-4a8e-8987-7525fe0c3220_shape" bpmnElement="id-bf99e14a-c118-4a8e-8987-7525fe0c3220">
         <di:waypoint x="1860" y="404" />
         <di:waypoint x="1860" y="380" />
-        <di:waypoint x="1699" y="380" />
-        <di:waypoint x="1699" y="172" />
-        <di:waypoint x="1679" y="172" />
+        <di:waypoint x="1669" y="380" />
+        <di:waypoint x="1669" y="228" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1269" y="218" width="100" height="40" />
         </bpmndi:BPMNLabel>
