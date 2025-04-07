@@ -11,3 +11,75 @@ wann wird was auf der Webseite durchgeführt
 
 senden: SMTP
 empfangen: POP3, IMAP
+
+
+
+hMailServer: für Hintergrund kommunikation via email
+Thunderbird: UI für email
+
+
+HTML Beispiel fetch request senden
+Swagger Start Process
+
+
+
+{
+  "variables": {
+    "order_number": {
+      "value": 123,
+      "type": "number"
+    },
+    "table_number": {
+      "value": 1234,
+      "type": "number"
+    },
+    "order_time": {
+      "value": "07-04-2025",
+      "type": "String"
+    },
+    "order_items": {
+      "value": ["Cheese Burger", "gruener Salat", "Cola"],
+      "type": "List"
+    }
+  },
+  "businessKey": "myBusinessKey"
+}
+
+
+
+Problem: start process ist bestellung abschicken
+
+und camunda process macht das ganze
+
+
+Wie kann ich denn prozess ablauf verfolgen?
+
+
+
+
+
+wieso geht start process nicht?
+
+nur camunda geändert
+
+
+
+wie kann ich die order sachen im camunda form anzeigen?
+range ist gesamte instanz
+
+
+
+
+
+
+
+
+
+
+
+Aktuell wichtig::
+
+code für placeOrder Exrpession:
+
+ohne variablen, funktioniert: #{execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation('StartTheProcessMessage').correlate()}
+mit variablen, funktioniert nicht: #execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation("order_recieved_id").setVariable("orderNumber", orderNumber).setVariable("tableNumber", tableNumber).setVariable("orderTime", orderTime).setVariable("orderItems", orderItems).correlate();

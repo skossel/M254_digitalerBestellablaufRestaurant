@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>User Task - Vorname und Nachname</title>
+</head>
+<body>
+    <h1>User Task - Vorname und Nachname</h1>
+    <form id="userForm">
+        <label for="vorname">Vorname:</label>
+        <input type="text" id="vorname" name="vorname" required 
+			cam-variable-name="fldFirstname"
+			cam-variable-type="String">
+        <br><br>
+        
+        <label for="nachname">Nachname:</label>
+        <input type="text" id="nachname" name="nachname" required
+		cam-variable-name="fldLastname"
+			cam-variable-type="String">
+        <br><br>
+
+        <label for="alter">Alter:</label>
+        <input type="number" id="alter" name="alter" required
+		cam-variable-name="fldAge"
+			cam-variable-type="Integer">
+        <br><br>
+		<input type="submit" value="Senden">==> Submitbutton funktioniert nur ausserhalb der Tasklist!
+    </form>
+
+    <script>
+		let urlProcessEngine = "http://localhost:8080/engine-rest/process-definition/key/VersuchMitHTML/start";
+        document.getElementById('userForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            
+            // Daten aus dem Formular erfassen
+            var vorname = document.getElementById('vorname').value;
+            var nachname = document.getElementById('nachname').value;
+			var alter = document.getElementById("alter").value;
+            
+            // JSON-Objekt erstellen
+            var formData = {
+				"variables" : {
+					"fldFirstname": {"value" : vorname, "type": "String"},
+					"fldLastname":  {"value" : nachname, "type": "String"},
+					"fldAge": {"value": alter, "type": "Integer"}
+				}
+            };
+
+            // Formulardaten an die Server-URL senden (hier als Beispiel eine Dummy-URL)
+            // Ersetzen Sie die Dummy-URL durch die tatsächliche URL Ihrer Prozess-Engine
+            fetch(urlProcessEngine, {
+                method: 'POST',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error('HTTP error, Status: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(function(data) {
+                // Hier können Sie die Antwort von der Prozess-Engine verarbeiten
+                console.log('Antwort von der Prozess-Engine:', data);
+                alert('Daten erfolgreich an die Prozess-Engine gesendet!');
+            })
+            .catch(function(error) {
+                console.error('Fehler beim Senden der Daten:', error);
+                alert('Fehler beim Senden der Daten an die Prozess-Engine.');
+            });
+        });
+    </script>
+</body>
+</html>
