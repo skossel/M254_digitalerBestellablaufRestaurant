@@ -19,7 +19,7 @@ const drinks = [
 const menuItems = { burgers, sides, drinks };
 let currentCategory = 'burgers';
 let cart = [];
-let orderCounter = 1; // Zähler für Bestellnummern
+let orderCounter = 1;
 
 const menuContainer = document.getElementById('menu-container');
 const cartModal = document.getElementById('cart-modal');
@@ -38,17 +38,16 @@ function renderMenu(category) {
     items.forEach(item => {
         const itemCard = document.createElement('div');
         itemCard.className = 'item-card';
-        itemCard.innerHTML = `
-      <div class="item-img">
-        <img src="${item.image}" alt="${item.name}">
-      </div>
-      <div class="item-details">
-        <h3 class="item-name">${item.name}</h3>
-        <p class="item-description">${item.description}</p>
-        <p class="item-price">${item.price.toFixed(2).replace('.', ',')} CHF</p>
-        <button class="add-to-cart" data-id="${item.id}" data-category="${category}">In den Warenkorb</button>
-      </div>
-    `;
+        itemCard.innerHTML =
+            `<div class="item-img">
+                <img src="${item.image}" alt="${item.name}">
+            </div>
+            <div class="item-details">
+                <h3 class="item-name">${item.name}</h3>
+                <p class="item-description">${item.description}</p>
+                <p class="item-price">${item.price.toFixed(2).replace('.', ',')} CHF</p>
+                <button class="add-to-cart" data-id="${item.id}" data-category="${category}">In den Warenkorb</button>
+            </div>`;
         menuContainer.appendChild(itemCard);
     });
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
@@ -92,18 +91,17 @@ function renderCartItems() {
     cart.forEach(item => {
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
-        cartItem.innerHTML = `
-      <div class="cart-item-details">
-        <div class="cart-item-name">${item.name}</div>
-        <div class="cart-item-price">${item.price.toFixed(2).replace('.', ',')} CHF</div>
-      </div>
-      <div class="quantity-controls">
-        <button class="quantity-btn decrease" data-id="${item.id}">–</button>
-        <span class="quantity">${item.quantity}</span>
-        <button class="quantity-btn increase" data-id="${item.id}">+</button>
-      </div>
-      <button class="remove-item" data-id="${item.id}">🗑️</button>
-    `;
+        cartItem.innerHTML =
+            `<div class="cart-item-details">
+                <div class="cart-item-name">${item.name}</div>
+                <div class="cart-item-price">${item.price.toFixed(2).replace('.', ',')} CHF</div>
+            </div>
+            <div class="quantity-controls">
+                <button class="quantity-btn decrease" data-id="${item.id}">–</button>
+                <span class="quantity">${item.quantity}</span>
+                <button class="quantity-btn increase" data-id="${item.id}">+</button>
+            </div>
+            <button class="remove-item" data-id="${item.id}">🗑️</button>`;
         cartItemsContainer.appendChild(cartItem);
     });
     const decreaseButtons = document.querySelectorAll('.decrease');
@@ -171,7 +169,6 @@ function closeCartModal() {
     overlay.classList.remove('active');
 }
 
-// Funktion zum Formatieren des aktuellen Datums und der Uhrzeit
 function getCurrentDateTime() {
     const now = new Date();
     const day = String(now.getDate()).padStart(2, '0');
@@ -179,83 +176,94 @@ function getCurrentDateTime() {
     const year = now.getFullYear();
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
-
     return `${day}.${month}.${year} ${hours}:${minutes}`;
 }
 
-// Funktion zur Erstellung der Bestellübersicht für Mitarbeiter
 function createEmployeeOrderView(orderData) {
-    // Bestellvorlage auffüllen
     let orderView = `Bestellnummer: #${orderData.order_number}\n`;
     orderView += `Tisch: ${orderData.table_number}\n`;
     orderView += `Bestellzeit: ${orderData.order_time}\n`;
     orderView += `Bestellung:\n`;
-
-    // Bestellte Artikel hinzufügen
     orderData.order_items.forEach(item => {
         orderView += `${item.quantity}x ${item.name} - ${(item.price * item.quantity).toFixed(2).replace('.', ',')} CHF\n`;
     });
-
-    // Gesamtpreis hinzufügen
     const total = orderData.order_items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     orderView += `\nGesamt: ${total.toFixed(2).replace('.', ',')} CHF`;
-
     return orderView;
 }
 
-// Funktion zum Speichern einer Bestellung
 function saveOrder(tableNumber) {
     if (cart.length === 0) {
         alert('Der Warenkorb ist leer.');
         return null;
     }
-
     const orderData = {
         order_number: orderCounter++,
         table_number: tableNumber,
         order_time: getCurrentDateTime(),
-        order_items: [...cart] // Kopie des Warenkorbs
+        order_items: [...cart]
     };
-
-    // Speichern der Bestellung im localStorage
     let orders = JSON.parse(localStorage.getItem('orders') || '[]');
     orders.push(orderData);
     localStorage.setItem('orders', JSON.stringify(orders));
-
     return orderData;
 }
 
-// Bestelldialog anzeigen
 function showOrderDialog() {
     if (cart.length === 0) {
         alert('Dein Warenkorb ist leer.');
         return;
     }
-
     const tableNumber = prompt('Bitte geben Sie die Tischnummer ein:', '1');
-    if (tableNumber === null) return; // Abbruch, wenn Cancel gedrückt wurde
-
+    if (tableNumber === null) return;
     const orderData = saveOrder(tableNumber);
     if (orderData) {
-        // Bestellübersicht für Mitarbeiter erstellen
         const employeeOrderView = createEmployeeOrderView(orderData);
-
-        // Anzeigen der Bestellübersicht (hier als Alert, in einer realen Anwendung würde man
-        // diese Informationen an ein Mitarbeiter-Dashboard senden)
         alert('Bestellung wurde aufgenommen:\n\n' + employeeOrderView);
-
-        // Warenkorb leeren
+        startProcess(orderData);
         cart = [];
         updateCart();
         closeCartModal();
     }
 }
 
+function startProcess(orderData) {
+    const urlProcessEngine = "http://localhost:8080/engine-rest/process-definition/key/guest_food_consumption/start";
+    const orderItemsText = orderData.order_items.map(item => {
+        return `${item.quantity}x ${item.name} (${(item.price * item.quantity).toFixed(2)} CHF)`;
+    }).join(', ');
+    const payload = {
+        variables: {
+            orderNumber: { value: orderData.order_number, type: "Integer" },
+            tableNumber: { value: orderData.table_number, type: "String" },
+            orderTime: { value: orderData.order_time, type: "String" },
+            orderItems: { value: orderItemsText, type: "String" }
+        }
+    };
+    fetch(urlProcessEngine, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP-Fehler: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            console.log("Camunda-Prozess gestartet:", data);
+            alert("Camunda-Prozess erfolgreich gestartet!");
+        })
+        .catch(error => {
+            console.error("Fehler beim Starten des Prozesses:", error);
+            alert("Fehler beim Starten des Camunda-Prozesses.");
+        });
+}
+
 cartIcon.addEventListener('click', openCartModal);
 closeModal.addEventListener('click', closeCartModal);
 overlay.addEventListener('click', closeCartModal);
-
-// Event-Listener für den Checkout-Button aktualisieren
 checkoutBtn.addEventListener('click', showOrderDialog);
 
 function loadCart() {
@@ -264,11 +272,8 @@ function loadCart() {
         cart = JSON.parse(savedCart);
         updateCart();
     }
-
-    // Laden der letzten Bestellnummer aus dem localStorage
     const orders = JSON.parse(localStorage.getItem('orders') || '[]');
     if (orders.length > 0) {
-        // Setze den Zähler auf die höchste vorhandene Bestellnummer + 1
         orderCounter = Math.max(...orders.map(order => order.order_number)) + 1;
     }
 }
@@ -282,37 +287,31 @@ categoryButtons.forEach(button => {
     });
 });
 
-// Funktion zum Anzeigen aller Bestellungen (für Mitarbeiter)
 function viewAllOrders() {
     const orders = JSON.parse(localStorage.getItem('orders') || '[]');
     if (orders.length === 0) {
         alert('Keine Bestellungen vorhanden.');
         return;
     }
-
     let allOrdersView = 'Alle Bestellungen:\n\n';
     orders.forEach(order => {
         allOrdersView += createEmployeeOrderView(order) + '\n\n' + '-'.repeat(30) + '\n\n';
     });
-
     alert(allOrdersView);
 }
 
-// Mitarbeiterbereich-Button zur Seite hinzufügen
 function addEmployeeSection() {
     const employeeButton = document.createElement('button');
     employeeButton.textContent = 'Mitarbeiterbereich';
     employeeButton.className = 'employee-button';
     employeeButton.addEventListener('click', () => {
         const password = prompt('Bitte geben Sie das Mitarbeiterpasswort ein:');
-        // Einfaches Passwort für Demo-Zwecke (in einer realen Anwendung würde man natürlich ein sicheres System verwenden)
         if (password === 'admin123') {
             viewAllOrders();
         } else {
             alert('Falsches Passwort.');
         }
     });
-
     document.querySelector('nav').appendChild(employeeButton);
 }
 
@@ -323,20 +322,3 @@ function init() {
 }
 
 init();
-
-//TODO send Mail funktioniert noch nciht. orderData finedet es nicht
-function sendMail (event) {
-    event.preventDefault();
-    let params = {
-        order_number : orderData.order_number.value,
-        table_number : orderData.table_number.value,
-        orderCounter : orderData.orderCounter.value,
-        order_items : orderData.order_items.value
-    }
-
-    emailjs
-        .send("service_ixfoyzk", "template_6hy17ci", params)
-        .then(function (response) {
-            alert("Email sent successfully!");
-        });
-}
