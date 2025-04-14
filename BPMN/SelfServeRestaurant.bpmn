@@ -26,18 +26,6 @@
     <bpmn2:sequenceFlow id="id-02ef73ee-260d-44e4-9a7d-394b8b408c07" sourceRef="id-1e26a7ea-4031-47bd-9a20-7afdbfb3197e" targetRef="id-72d0752a-138d-46af-96b5-2473882c7010" />
     <bpmn2:sequenceFlow id="id-e198c564-82b2-4800-8063-8e8410395190" sourceRef="id-51ed9935-91dd-497d-b825-fa0d2660c099" targetRef="id-2715bd4e-4239-4f70-afe7-f072716d6e2d" />
     <bpmn2:sequenceFlow id="id-f369d3e9-9b90-4072-8b22-832e4485f47e" sourceRef="id-6a725c06-8437-4c22-b670-24ec6dea1272" targetRef="id-51ed9935-91dd-497d-b825-fa0d2660c099" />
-    <bpmn2:sendTask id="id-78fa0441-37de-46cb-b011-50196db349ef" name="Place order" camunda:expression="#execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation(&#34;order_recieved_id&#34;).setVariable(&#34;orderNumber&#34;, orderNumber).setVariable(&#34;tableNumber&#34;, tableNumber).setVariable(&#34;orderTime&#34;, orderTime).setVariable(&#34;orderItems&#34;, orderItems).correlate();">
-      <bpmn2:extensionElements>
-        <camunda:executionListener event="start">
-          <camunda:script scriptFormat="JavaScript">print("test***")</camunda:script>
-        </camunda:executionListener>
-        <camunda:executionListener event="end">
-          <camunda:script scriptFormat="JavaScript">print("end***")</camunda:script>
-        </camunda:executionListener>
-      </bpmn2:extensionElements>
-      <bpmn2:incoming>id-67d7737c-58a3-4558-96f9-335bc6dee1e2</bpmn2:incoming>
-      <bpmn2:outgoing>id-6fc992bf-7339-460c-b901-e7ae4997aa1a</bpmn2:outgoing>
-    </bpmn2:sendTask>
     <bpmn2:intermediateCatchEvent id="id-51ed9935-91dd-497d-b825-fa0d2660c099" name="Meal ready">
       <bpmn2:incoming>id-f369d3e9-9b90-4072-8b22-832e4485f47e</bpmn2:incoming>
       <bpmn2:outgoing>id-e198c564-82b2-4800-8063-8e8410395190</bpmn2:outgoing>
@@ -61,6 +49,18 @@
       <bpmn2:incoming>id-6fc992bf-7339-460c-b901-e7ae4997aa1a</bpmn2:incoming>
       <bpmn2:outgoing>id-f369d3e9-9b90-4072-8b22-832e4485f47e</bpmn2:outgoing>
     </bpmn2:manualTask>
+    <bpmn2:sendTask id="id-78fa0441-37de-46cb-b011-50196db349ef" name="Place order" camunda:expression="#{execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation(&#34;order_recieved_id&#34;).setVariable(&#34;orderNumber&#34;, execution.getVariable(&#34;orderNumber&#34;)).setVariable(&#34;tableNumber&#34;, execution.getVariable(&#34;tableNumber&#34;)).setVariable(&#34;orderTime&#34;, execution.getVariable(&#34;orderTime&#34;)).setVariable(&#34;orderItems&#34;, execution.getVariable(&#34;orderItems&#34;)).correlate()}">
+      <bpmn2:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="JavaScript">print("test***")</camunda:script>
+        </camunda:executionListener>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="JavaScript">print(orderNumber)</camunda:script>
+        </camunda:executionListener>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>id-67d7737c-58a3-4558-96f9-335bc6dee1e2</bpmn2:incoming>
+      <bpmn2:outgoing>id-6fc992bf-7339-460c-b901-e7ae4997aa1a</bpmn2:outgoing>
+    </bpmn2:sendTask>
   </bpmn2:process>
   <bpmn2:process id="Process_id-d08faf44-e0ea-4342-909b-833af68fbc58" name="Employee order processing" isExecutable="true" camunda:historyTimeToLive="180">
     <bpmn2:startEvent id="id-b6322b94-c9d8-457f-8cb8-335b7fcab8ac" name="Order received">
@@ -115,10 +115,6 @@
     <bpmn2:endEvent id="id-28f0891b-a407-4fc4-8193-7b6cf1ea181d" name="Order processed">
       <bpmn2:incoming>id-67e9300f-18aa-4ba9-96ea-1365975583cd</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:userTask id="id-2d915c15-4a6d-4a97-b25e-d5b13c7d9470" name="Hand over buzzer">
-      <bpmn2:incoming>Flow_15uxvcc</bpmn2:incoming>
-      <bpmn2:outgoing>id-d71264cd-e2e5-43e9-8988-8d3bee5d651d</bpmn2:outgoing>
-    </bpmn2:userTask>
     <bpmn2:sendTask id="id-e37b4ef6-003c-4662-b1d2-b3fe6282ae05" name="Inform cook" camunda:expression="#{execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation(&#39;meal_needed&#39;).correlate()}">
       <bpmn2:extensionElements />
       <bpmn2:incoming>id-d71264cd-e2e5-43e9-8988-8d3bee5d651d</bpmn2:incoming>
@@ -141,6 +137,10 @@
       <bpmn2:incoming>id-a2d5e38b-a142-4412-9986-7fe1c34f14f8</bpmn2:incoming>
       <bpmn2:outgoing>id-2a4a3ece-8950-47bb-8c30-384e75a9d80d</bpmn2:outgoing>
     </bpmn2:sendTask>
+    <bpmn2:serviceTask id="id-2d915c15-4a6d-4a97-b25e-d5b13c7d9470" name="Hand over buzzer" camunda:type="external" camunda:topic="hand_over_buzzer">
+      <bpmn2:incoming>Flow_15uxvcc</bpmn2:incoming>
+      <bpmn2:outgoing>id-d71264cd-e2e5-43e9-8988-8d3bee5d651d</bpmn2:outgoing>
+    </bpmn2:serviceTask>
   </bpmn2:process>
   <bpmn2:process id="Process_id-59784928-c98c-4c8d-8303-5d410e7c9aef" name="Chef meal preparation" isExecutable="true" camunda:historyTimeToLive="180">
     <bpmn2:startEvent id="id-9ad63176-7c7c-4220-923a-dbcca3999ef6" name="Meal needed">
@@ -178,12 +178,6 @@
         <dc:Bounds x="160" y="80" width="1580" height="250" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1je58d8_di" bpmnElement="id-3a525c58-f13c-4e1b-bdbd-0b04084a4eec">
-        <dc:Bounds x="292" y="170" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="266" y="204" width="89" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0a0rsh6_di" bpmnElement="id-78fa0441-37de-46cb-b011-50196db349ef">
         <dc:Bounds x="464" y="148" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -204,6 +198,12 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_08rdz70_di" bpmnElement="id-1e26a7ea-4031-47bd-9a20-7afdbfb3197e">
         <dc:Bounds x="1084" y="148" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1je58d8_di" bpmnElement="id-3a525c58-f13c-4e1b-bdbd-0b04084a4eec">
+        <dc:Bounds x="292" y="170" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="266" y="204" width="89" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0q907vt_di" bpmnElement="id-6a725c06-8437-4c22-b670-24ec6dea1272">
         <dc:Bounds x="652" y="148" width="100" height="80" />
@@ -294,9 +294,6 @@
           <dc:Bounds x="1569" y="460" width="82" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_11nlzfy_di" bpmnElement="id-2d915c15-4a6d-4a97-b25e-d5b13c7d9470">
-        <dc:Bounds x="632" y="492" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0qm2htj_di" bpmnElement="id-e37b4ef6-003c-4662-b1d2-b3fe6282ae05">
         <dc:Bounds x="760" y="492" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -311,6 +308,10 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1j18nc2_di" bpmnElement="id-b4182704-022a-4761-a1ee-1435a8fc7cf3">
         <dc:Bounds x="1008" y="492" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0xuqglm_di" bpmnElement="id-2d915c15-4a6d-4a97-b25e-d5b13c7d9470">
+        <dc:Bounds x="632" y="492" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="id-0ef18caa-bd33-478c-b8a3-74a79811e945_shape" bpmnElement="id-0ef18caa-bd33-478c-b8a3-74a79811e945">
         <di:waypoint x="268" y="532" />
