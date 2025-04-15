@@ -14,6 +14,24 @@
 <header>
     <h1>Burgerhouse</h1>
     <p>100% Geschmack. 0% Kompromisse</p>
+    #execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation("order_recieved_id").setVariable("orderNumber", orderNumber).setVariable("tableNumber", tableNumber).setVariable("orderTime", orderTime).setVariable("orderItems", orderItems).correlate();
+
+    #{execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation("order_recieved_id").correlate()}
+
+    #{execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation("order_recieved_id").setVariable("orderNumber", orderNumber).correlate()}
+    FEEL für execution
+
+
+    #{execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation("order_recieved_id").setVariable("orderNumber", execution.getVariable("orderNumber")).setVariable("tableNumber", execution.getVariable("tableNumber")).setVariable("orderTime", execution.getVariable("orderTime")).setVariable("orderItems", execution.getVariable("orderItems").setVariable("businessKey", execution.getVariable("businessKey") + "X").correlate()}
+
+    #{execution.getProcessEngineServices().getRuntimeService().createMessageCorrelation("guest_appears_id").processInstanceBusinessKey(execution.getVariable("businessKey") + "X").setVariable("orderNumber", execution.getVariable("orderNumber")).setVariable("tableNumber", execution.getVariable("tableNumber")).setVariable("orderTime", execution.getVariable("orderTime")).setVariable("orderItems", execution.getVariable("orderItems")).correlate()}
+
+    businessKey
+
+    expression scope nur bei java und nicht in camunda. mit exression.getVariable("orderNumber") in camunda variable holen
+
+    set up buzzer  von manual task zu script umwandeln (coop passebene inspiration -> wand mit buzzer ordernumber auswählen)
+
 </header>
 <nav>
     <div class="categories">

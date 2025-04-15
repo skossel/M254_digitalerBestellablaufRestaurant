@@ -1,3 +1,7 @@
+
+
+
+
 const burgers = [
     { id: 1, name: "Classic Burger", description: "Saftiges Rindfleisch mit Salat, Tomate, Zwiebeln und unserer Spezial-Sauce", price: 12.50, image: "images/hamburger.jpg" },
     { id: 2, name: "Cheese Burger", description: "Unser Classic Burger mit würzigem Cheddar-Käse", price: 13.50, image: "images/cheeseBurger.jpg" },
@@ -233,6 +237,7 @@ function startProcess(orderData) {
         return `${item.quantity}x ${item.name} (${(item.price * item.quantity).toFixed(2)} CHF)`;
     }).join(', ');
     const payload = {
+        businessKey: "thebusinessKey",
         variables: {
             orderNumber: { value: orderData.order_number, type: "Integer" },
             tableNumber: { value: orderData.table_number, type: "String" },
