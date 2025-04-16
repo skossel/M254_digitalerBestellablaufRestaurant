@@ -232,7 +232,7 @@ function showOrderDialog() {
 }
 
 function startProcess(orderData) {
-    const urlProcessEngine = "http://localhost:8080/engine-rest/process-definition/key/guest_food_consumption/start";
+    const urlProcessEngine = "http://localhost:8080/engine-rest/process-definition/key/restaurant-guest/start";
     const orderItemsText = orderData.order_items.map(item => {
         return `${item.quantity}x ${item.name} (${(item.price * item.quantity).toFixed(2)} CHF)`;
     }).join(', ');
