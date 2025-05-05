@@ -22,7 +22,7 @@ def handle_buzzer(task: ExternalTask) -> TaskResult:
     orderNumber = task.get_variable("orderNumber")
     print(f"***** Buzzer '{orderNumber}' wurde vorgegeben")
 
-    return task.complete({"orderNumerus": orderNumber})
+    return task.complete({"orderNumber": orderNumber})
 
 if __name__ == '__main__':
     main()

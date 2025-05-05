@@ -1,7 +1,3 @@
-
-
-
-
 const burgers = [
     { id: 1, name: "Classic Burger", description: "Saftiges Rindfleisch mit Salat, Tomate, Zwiebeln und unserer Spezial-Sauce", price: 12.50, image: "images/hamburger.jpg" },
     { id: 2, name: "Cheese Burger", description: "Unser Classic Burger mit würzigem Cheddar-Käse", price: 13.50, image: "images/cheeseBurger.jpg" },
